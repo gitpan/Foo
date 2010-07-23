@@ -1,13 +1,8 @@
-package Foo;
-our $VERSION = '1.23';
 use strict;
 use warnings;
-# ABSTRACT: Foo this thing
+package Foo;
+
+# ABSTRACT: turns baubles into trinkets
+#
 
 1;
-
-=head1 DESCRIPTION
-
-Foo the foo.
-
-=cut

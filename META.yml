@@ -1,15 +1,15 @@
 ---
-abstract: 'Test Library'
+abstract: 'turns baubles into trinkets'
 author:
-  - foobar
+  - 'Yanick Champoux <yanick@babyl.dyndns.org>'
 build_requires: {}
 configure_requires:
-  ExtUtils::MakeMaker: 6.11
-generated_by: 'Dist::Zilla version 1.100711'
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.101900, CPAN::Meta::Converter version 2.101590'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Foo
-requires: {}
-version: 1.23
+version: 1

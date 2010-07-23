@@ -4,31 +4,44 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker 6.11;
+use ExtUtils::MakeMaker 6.31;
 
 
 
 my %WriteMakefileArgs = (
-                       'test' => {
-                                   'TESTS' => ''
-                                 },
-                       'NAME' => 'Foo',
-                       'DISTNAME' => 'Foo',
-                       'CONFIGURE_REQUIRES' => {
-                                                 'ExtUtils::MakeMaker' => '6.11'
-                                               },
-                       'AUTHOR' => 'foobar',
-                       'BUILD_REQUIRES' => {},
-                       'ABSTRACT' => 'Test Library',
-                       'EXE_FILES' => [],
-                       'VERSION' => '1.23',
-                       'PREREQ_PM' => {},
-                       'LICENSE' => 'perl'
-                     );
+  'ABSTRACT' => 'turns baubles into trinkets',
+  'AUTHOR' => 'Yanick Champoux <yanick@babyl.dyndns.org>',
+  'BUILD_REQUIRES' => {},
+  'CONFIGURE_REQUIRES' => {
+    'ExtUtils::MakeMaker' => '6.31'
+  },
+  'DISTNAME' => 'Foo',
+  'EXE_FILES' => [],
+  'LICENSE' => 'perl',
+  'NAME' => 'Foo',
+  'PREREQ_PM' => {},
+  'VERSION' => '1',
+  'test' => {
+    'TESTS' => ''
+  }
+);
 
 
-delete $WriteMakefileArgs{LICENSE}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.31) };
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 WriteMakefile(%WriteMakefileArgs);
 
